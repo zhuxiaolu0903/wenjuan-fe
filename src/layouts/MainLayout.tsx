@@ -9,10 +9,12 @@ const MainLayout: FC = () => {
   return (
     <Layout>
       <Header>MainLayout header</Header>
-      <Content className={styles.main}>
+      <Content className={styles['main']}>
         <Outlet />
       </Content>
-      <Footer>MainLayout footer</Footer>
+      <Footer className={styles['footer-container']}>
+        小慕问卷@2023 - present. Created by lucy
+      </Footer>
     </Layout>
   )
 }
