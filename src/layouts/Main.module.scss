@@ -1,6 +1,11 @@
 .main {
     height: calc(100vh - 64px - 67px);
 }
+.head-container {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
 .footer-container {
     display: flex;
     justify-content: center;
