@@ -24,7 +24,7 @@ const rawQuestionList = [
 
 const List: FC = () => {
   const [questionList, setQuestionList] = useState(rawQuestionList)
-  useTitle('小慕星—我的问卷')
+  useTitle('问卷星球—我的问卷')
 
   return (
     <>

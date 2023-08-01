@@ -1,10 +1,23 @@
 .container {
-  background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+  position: relative;
+  //background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
   .info {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: calc(100vh - 64px - 67px);
+    background-color: transparent;
+    backdrop-filter: blur(4px);
   }
+}
+.container-1 {
+  composes: container;
+  background-image: url("../assets/images/home-bg01.png");
+  background-size: 100% 100%;
+}
+.container-2 {
+  composes: container;
+  background-image: url("../assets/images/home-bg02.png");
+  background-size: cover;
 }

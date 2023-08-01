@@ -7,7 +7,7 @@ const Logo: FC = () => {
     <>
       <div className={styles['container']}>
         <img src={LogoImg} alt="logo" />
-        <span>小慕问卷</span>
+        <span>问卷星球</span>
       </div>
     </>
   )

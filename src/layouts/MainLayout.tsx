@@ -22,7 +22,7 @@ const MainLayout: FC = () => {
         <Outlet />
       </Content>
       <Footer className={styles['footer-container']}>
-        小慕问卷@2023 - present. Created by lucy
+        问卷星球@2023 - present. Created by lucy
       </Footer>
     </Layout>
   )
