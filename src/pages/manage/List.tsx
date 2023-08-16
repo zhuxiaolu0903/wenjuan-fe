@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react'
 import QuestionCard from '../../components/QuestionCard'
 import styles from './List.module.scss'
 import { useTitle } from 'ahooks'
+import { Divider } from 'antd'
 
 const rawQuestionList = [
   {
@@ -33,8 +34,11 @@ const List: FC = () => {
         <div className={styles['search']}>搜索</div>
       </div>
       <div className={styles['center']}>
-        {questionList.map((item) => (
-          <QuestionCard key={item.id} {...item} />
+        {questionList.map((item, index) => (
+          <>
+            <QuestionCard key={item.id} {...item} />
+            {index !== questionList.length - 1 && <Divider />}
+          </>
         ))}
       </div>
       <div className={styles['footer']}></div>

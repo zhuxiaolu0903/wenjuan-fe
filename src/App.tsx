@@ -9,7 +9,9 @@ function App() {
     <ConfigProvider
       theme={{
         token: {
-          fontFamily: '仓耳渔阳体 W01'
+          fontFamily: '仓耳渔阳体 W01',
+          colorPrimary: '#07c160',
+          borderRadius: 2
         }
       }}
     >

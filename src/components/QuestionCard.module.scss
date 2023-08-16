@@ -1,12 +1,5 @@
 .container {
-    margin-bottom: 20px;
-    padding: 12px;
     border-radius: 3px;
-    background-color: #fff;
-
-    &:hover {
-        box-shadow: 0 4px 10px #e8e8e8;
-    }
 }
 
 .title {
@@ -25,6 +18,7 @@
 
 .button-container {
     display: flex;
+    margin-top: 16px;
 
     .left {
         flex: 1;
