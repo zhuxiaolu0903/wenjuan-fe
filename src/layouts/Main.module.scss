@@ -1,5 +1,5 @@
 .main {
-    height: calc(100vh - 64px - 67px);
+    height: calc(100vh - 64px - 66px);
 }
 .head-container {
     display: flex;
@@ -10,4 +10,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #001529;
+    color: #f7f7f7;
 }
