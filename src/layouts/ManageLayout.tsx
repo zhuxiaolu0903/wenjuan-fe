@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import React, { FC, useEffect, useState } from 'react'
+import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import styles from './ManageLayout.module.scss'
 import {
   AppstoreOutlined,
@@ -32,31 +32,28 @@ function getItem(
 }
 
 const items: MenuProps['items'] = [
-  getItem('问卷管理', 'questionManage', <AppstoreOutlined />, [
-    getItem('我的问卷', 'my', <UnorderedListOutlined />),
-    getItem('星标问卷', 'star', <StarOutlined />)
+  getItem('问卷管理', 'manage', <AppstoreOutlined />, [
+    getItem('我的问卷', '/manage/list', <UnorderedListOutlined />),
+    getItem('星标问卷', '/manage/star', <StarOutlined />)
   ]),
   { type: 'divider' },
-  getItem('快捷访问', 'quick', null, [getItem('回收站', 'trash', <DeleteOutlined />)], 'group')
+  getItem(
+    '快捷访问',
+    'quick',
+    null,
+    [getItem('回收站', '/manage/trash', <DeleteOutlined />)],
+    'group'
+  )
 ]
 
 const ManageLayout: FC = () => {
   const nav = useNavigate()
-  const onClick: MenuProps['onClick'] = (e) => {
-    let path = ''
-    switch (e.key) {
-      case 'my':
-        path = '/manage/list'
-        break
-      case 'star':
-        path = '/manage/star'
-        break
-      case 'trash':
-        path = '/manage/trash'
-        break
-    }
-    nav(path)
-  }
+  const { pathname } = useLocation()
+  const [openKeys, setOpenKeys] = useState<string[]>([])
+  useEffect(() => {
+    const keys = pathname.split('/')
+    setOpenKeys([keys[1]])
+  }, [pathname])
 
   return (
     <Layout className={styles['container']}>
@@ -69,9 +66,11 @@ const ManageLayout: FC = () => {
               </Button>
             </div>
             <Menu
-              onClick={onClick}
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
+              onClick={(e) => {
+                nav(e.key)
+              }}
+              selectedKeys={[pathname]}
+              openKeys={openKeys}
               mode="inline"
               items={items}
             />

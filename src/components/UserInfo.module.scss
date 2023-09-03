@@ -1,0 +1,27 @@
+.sign-in-container {
+  width: 200px;
+  margin: 32px auto 0 auto;
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 32px;
+    font-size: 18px;
+    font-family: '仓耳渔阳体 W05';
+    img {
+      margin-right: 8px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .slide-tab {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  .register-container {
+
+  }
+}

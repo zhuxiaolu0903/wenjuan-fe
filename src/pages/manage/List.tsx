@@ -1,9 +1,12 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import QuestionCard from '../../components/QuestionCard'
 import styles from './common.module.scss'
 import { useTitle } from 'ahooks'
 import { Button, Divider, Empty, Space } from 'antd'
-import { SearchOutlined, SwapRightOutlined } from '@ant-design/icons'
+import { SwapRightOutlined } from '@ant-design/icons'
+import ListSearch from '../../components/ListSearch'
+import { useSearchParams } from 'react-router-dom'
+import { LIST_SEARCH_PARAM_KEY } from '../../constant'
 
 const rawQuestionList = [
   {
@@ -43,6 +46,12 @@ const rawQuestionList = [
 const List: FC = () => {
   const [questionList, setQuestionList] = useState(rawQuestionList)
   useTitle('问卷星球—我的问卷')
+  const [searchParams] = useSearchParams()
+
+  // 获取搜索关键字
+  useEffect(() => {
+    console.log(searchParams.get(LIST_SEARCH_PARAM_KEY))
+  }, [searchParams])
 
   return (
     <div className={styles['question-list-container']}>
@@ -50,8 +59,7 @@ const List: FC = () => {
         <div className={styles['title']}>我的问卷</div>
         <div className={styles['search']}>
           <Space style={{ cursor: 'pointer' }}>
-            <SearchOutlined />
-            搜索
+            <ListSearch />
           </Space>
         </div>
       </div>

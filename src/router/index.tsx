@@ -2,8 +2,6 @@ import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import MainLayout from '../layouts/MainLayout'
 import Home from '../pages/Home'
-import Register from '../pages/Register'
-import Login from '../pages/Login'
 import NotFound from '../pages/NotFound'
 import ManageLayout from '../layouts/ManageLayout'
 import List from '../pages/manage/List'
@@ -20,14 +18,6 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />
-      },
-      {
-        path: 'login',
-        element: <Login />
-      },
-      {
-        path: 'register',
-        element: <Register />
       },
       {
         path: 'manage',
@@ -70,6 +60,4 @@ export const router = createBrowserRouter([
 ])
 // 常用的路由，常量
 export const HOME_PATHNAME = '/'
-export const LOGIN_PATHNAME = '/login'
-export const REGISTER_PATHNAME = '/register'
 export const MANAGE_LIST_PATHNAME = '/manage/list'

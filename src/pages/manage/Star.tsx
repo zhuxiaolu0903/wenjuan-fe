@@ -3,7 +3,8 @@ import QuestionCard from '../../components/QuestionCard'
 import styles from './common.module.scss'
 import { useTitle } from 'ahooks'
 import { Button, Divider, Empty, Space } from 'antd'
-import { SearchOutlined, SwapRightOutlined } from '@ant-design/icons'
+import { SwapRightOutlined } from '@ant-design/icons'
+import ListSearch from '../../components/ListSearch'
 
 const rawQuestionList = [
   {
@@ -34,8 +35,7 @@ const Star: FC = () => {
         <div className={styles['title']}>星标问卷</div>
         <div className={styles['search']}>
           <Space style={{ cursor: 'pointer' }}>
-            <SearchOutlined />
-            搜索
+            <ListSearch />
           </Space>
         </div>
       </div>

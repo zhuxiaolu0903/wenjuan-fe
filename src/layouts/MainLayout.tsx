@@ -11,12 +11,8 @@ const MainLayout: FC = () => {
   return (
     <Layout>
       <Header className={styles['head-container']}>
-        <div>
-          <Logo />
-        </div>
-        <div>
-          <UserInfo />
-        </div>
+        <Logo />
+        <UserInfo />
       </Header>
       <Content className={styles['main']}>
         <Outlet />
