@@ -16,13 +16,19 @@
   }
 }
 .center {
-  flex: 1;
+  height: calc(100% - 48px);
   padding: 16px 0;
   background-color: #fff;
-
+  overflow: auto;
   .tool-list-container {
     margin-bottom: 16px;
   }
+  .load-more {
+    text-align: center;
+  }
 }
 .footer {
+  padding: 8px;
+  text-align: right;
+  background-color: #ffffff;
 }

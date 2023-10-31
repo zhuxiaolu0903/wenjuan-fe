@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react'
+import React, { FC, useState } from 'react'
 import styles from './UserInfo.module.scss'
 import { Button, Form, Input, Modal } from 'antd'
 import LogoImg from '../assets/images/logo.png'

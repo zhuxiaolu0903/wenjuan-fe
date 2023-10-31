@@ -1,49 +1,24 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styles from './common.module.scss'
 import { useTitle } from 'ahooks'
-import { Button, Divider, Empty, Space, Table, Tag } from 'antd'
+import { Button, Divider, Empty, Pagination, Space, Table, Tag } from 'antd'
 import { DeleteOutlined, SwapRightOutlined } from '@ant-design/icons'
 import ListSearch from '../../components/ListSearch'
-
-const rawQuestionList = [
-  {
-    _id: 'q1',
-    title: '问卷1',
-    isPublished: false,
-    isStar: false,
-    answerCount: 5,
-    createdAt: '2023/06/28'
-  },
-  {
-    _id: 'q2',
-    title: '问卷2',
-    isPublished: true,
-    isStar: true,
-    answerCount: 2,
-    createdAt: '2023/06/28'
-  },
-  {
-    _id: 'q3',
-    title: '问卷3',
-    isPublished: false,
-    isStar: false,
-    answerCount: 2,
-    createdAt: '2023/06/28'
-  },
-  {
-    _id: 'q4',
-    title: '问卷4',
-    isPublished: true,
-    isStar: true,
-    answerCount: 2,
-    createdAt: '2023/06/28'
-  }
-]
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
+import ListPage from '../../components/ListPage'
 
 const Trash: FC = () => {
-  const [questionList, setQuestionList] = useState(rawQuestionList)
   useTitle('问卷星球—回收站')
 
+  const [isStartLoad, setIsStartLoad] = useState(true)
+  const { data = {}, loading, refresh } = useLoadQuestionListData()
+  const { list = [], total = 0 } = data
+
+  useEffect(() => {
+    if (isStartLoad && !loading) {
+      setIsStartLoad(false)
+    }
+  }, [loading])
   const handleRestoreQuestion = (row: any) => {
     console.log(row)
   }
@@ -104,9 +79,10 @@ const Trash: FC = () => {
         </Button>
       </div>
       <Table
-        dataSource={questionList}
+        dataSource={list}
         columns={tableColumns}
         rowKey={(item) => item._id}
+        loading={loading}
         pagination={false}
       />
     </div>
@@ -123,7 +99,7 @@ const Trash: FC = () => {
         </div>
       </div>
       <div className={styles['center']}>
-        {questionList.length === 0 ? (
+        {!isStartLoad && list.length === 0 ? (
           <Empty
             image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
             style={{
@@ -143,7 +119,9 @@ const Trash: FC = () => {
           TableContainer
         )}
       </div>
-      <div className={styles['footer']}>分页</div>
+      <div className={styles['footer']}>
+        <ListPage total={total} />
+      </div>
     </div>
   )
 }
