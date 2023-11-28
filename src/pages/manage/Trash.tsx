@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useState } from 'react'
 import styles from './common.module.scss'
-import { useTitle } from 'ahooks'
-import { Button, Divider, Empty, Pagination, Space, Table, Tag } from 'antd'
-import { DeleteOutlined, SwapRightOutlined } from '@ant-design/icons'
+import { useRequest, useTitle } from 'ahooks'
+import { Button, Divider, Empty, message, Pagination, Space, Table, Tag } from 'antd'
+import { DeleteOutlined, SwapRightOutlined, UndoOutlined } from '@ant-design/icons'
 import ListSearch from '../../components/ListSearch'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 import ListPage from '../../components/ListPage'
+import { deleteQuestionsService, updateQuestionService } from '../../services/question'
 
 const Trash: FC = () => {
   useTitle('问卷星球—回收站')
@@ -13,6 +14,7 @@ const Trash: FC = () => {
   const [isStartLoad, setIsStartLoad] = useState(true)
   const { data = {}, loading, refresh } = useLoadQuestionListData()
   const { list = [], total = 0 } = data
+  const [selectedIds, setSelectedIds] = useState<string[]>([])
 
   useEffect(() => {
     if (isStartLoad && !loading) {
@@ -22,6 +24,40 @@ const Trash: FC = () => {
   const handleRestoreQuestion = (row: any) => {
     console.log(row)
   }
+
+  const { run: recover, loading: recoverLoading } = useRequest(
+    async () => {
+      message.success('恢复中...', 0)
+      for await (const id of selectedIds) {
+        await updateQuestionService(id, { isDeleted: false })
+      }
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        message.destroy()
+        message.success('恢复成功')
+        refresh()
+        setSelectedIds([])
+      }
+    }
+  )
+
+  const { run: del, loading: delLoading } = useRequest(
+    async () => {
+      message.success('删除中...', 0)
+      await deleteQuestionsService(selectedIds)
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        message.destroy()
+        message.success('删除成功')
+        refresh()
+        setSelectedIds([])
+      }
+    }
+  )
 
   const tableColumns = [
     {
@@ -73,17 +109,40 @@ const Trash: FC = () => {
 
   const TableContainer = (
     <div style={{ margin: '0 16px' }}>
-      <div className={styles['tool-list-container']}>
-        <Button icon={<DeleteOutlined />} danger type={'text'}>
-          清空回收站
+      <Space className={styles['tool-list-container']}>
+        <Button
+          icon={<UndoOutlined />}
+          type={'text'}
+          style={{ color: '#07c160' }}
+          onClick={recover}
+          loading={recoverLoading}
+          disabled={delLoading}
+        >
+          恢复
         </Button>
-      </div>
+        <Button
+          icon={<DeleteOutlined />}
+          danger
+          type={'text'}
+          onClick={del}
+          loading={delLoading}
+          disabled={recoverLoading}
+        >
+          彻底删除
+        </Button>
+      </Space>
       <Table
         dataSource={list}
         columns={tableColumns}
         rowKey={(item) => item._id}
         loading={loading}
         pagination={false}
+        rowSelection={{
+          type: 'checkbox',
+          onChange: (selectedRowKeys) => {
+            setSelectedIds(selectedRowKeys as string[])
+          }
+        }}
       />
     </div>
   )

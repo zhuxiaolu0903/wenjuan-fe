@@ -62,6 +62,7 @@ const List: FC = () => {
   }, [searchParams])
 
   const centerRef = useRef<HTMLDivElement>(null)
+
   // 2. 当页面滚动时，要尝试触发加载
   useEffect(() => {
     const elem = centerRef.current
@@ -78,7 +79,7 @@ const List: FC = () => {
   const { run: tryLoadMore } = useDebounceFn(() => {
     const elem = centerRef.current
     if (!elem) return
-    if (elem.scrollHeight - elem.scrollTop - elem.offsetHeight <= 0) {
+    if (elem.scrollHeight - elem.scrollTop - elem.offsetHeight <= 5) {
       // 列表最底部出现在视野内，开始加载
       load()
     }

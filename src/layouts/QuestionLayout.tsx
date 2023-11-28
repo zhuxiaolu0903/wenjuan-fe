@@ -3,12 +3,9 @@ import { Outlet } from 'react-router-dom'
 
 const ManageLayout: FC = () => {
   return (
-    <>
-      <div>QuestionLayout</div>
-      <div>
-        <Outlet />
-      </div>
-    </>
+    <div style={{ height: '100vh' }}>
+      <Outlet />
+    </div>
   )
 }
 

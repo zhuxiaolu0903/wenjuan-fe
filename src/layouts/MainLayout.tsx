@@ -4,10 +4,13 @@ import { Layout } from 'antd'
 import styles from './Main.module.scss'
 import Logo from '../components/Logo'
 import UserInfo from '../components/UserInfo'
+import useNavPage from '../hooks/useNavPage'
 
 const { Header, Content, Footer } = Layout
 
 const MainLayout: FC = () => {
+  // 根据登录状态导航页面
+  useNavPage()
   return (
     <Layout>
       <Header className={styles['head-container']}>
