@@ -1,0 +1,39 @@
+.component-group-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 8px;
+}
+
+.component-item-box {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-content: center;
+  justify-items: center;
+  row-gap: 8px;
+  cursor: pointer;
+
+  &:hover {
+    span {
+      color: #07c160;
+    }
+  }
+
+  i {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+  }
+
+  .text-icon {
+    background-image: url("../../../assets/images/component/text-icon.png");
+  }
+
+  .input-icon {
+    background-image: url("../../../assets/images/component/input-icon.png");
+  }
+
+  span {
+    font-size: 12px;
+  }
+}

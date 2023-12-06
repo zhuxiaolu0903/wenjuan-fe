@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { getQuestionService } from '../../services/question'
 import { ComponentPropsType } from '../../components/QuestionComponents'
 import { resetPageInfo } from '../pageInfo/slice'
+import { getNextSelectedId, insertNewComponent } from './utils'
 
 export type ComponentInfoType = {
   fe_id: string // 前端生成的 id ，服务端 Mongodb 不认这种格式，所以自定义一个 fe_id
@@ -36,6 +37,60 @@ export const componentsSlice = createSlice({
     // 修改 selectedId
     changeSelectedId: (state: ComponentsStateType, action: PayloadAction<string>) => {
       state.selectedId = action.payload
+    },
+    // 新增组件
+    addComponent: (state: ComponentsStateType, action: PayloadAction<ComponentInfoType>) => {
+      const newComponent = action.payload
+      if (newComponent) {
+        insertNewComponent(state, newComponent)
+      }
+    },
+    // 修改组件属性
+    changeComponentProps: (
+      state: ComponentsStateType,
+      action: PayloadAction<{ fe_id: string; newProps: ComponentPropsType }>
+    ) => {
+      const { fe_id, newProps } = action.payload
+      const curComp = state.componentList.find((component) => component.fe_id === fe_id)
+      if (!curComp) return
+      curComp.props = {
+        ...curComp.props,
+        ...newProps
+      }
+    },
+    // 显示/隐藏组件
+    toggleComponentHidden(state: ComponentsStateType, action: PayloadAction<string>) {
+      const { componentList = [] } = state
+      const fe_id = action.payload
+      const curComp = componentList.find((component) => component.fe_id === fe_id)
+      if (curComp) {
+        curComp.isHidden = !curComp.isHidden
+      }
+    },
+    // 锁定/解锁组件
+    toggleComponentLocked(state: ComponentsStateType, action: PayloadAction<string>) {
+      const { componentList = [] } = state
+      const fe_id = action.payload
+      // 重新计算selectedId
+      state.selectedId = getNextSelectedId(fe_id, componentList)
+      const curComp = componentList.find((component) => component.fe_id === fe_id)
+      if (curComp) {
+        curComp.isLocked = !curComp.isLocked
+      }
+    },
+    // 删除当前选中的组件
+    removeSelectedComponent: (state: ComponentsStateType, action: PayloadAction<string>) => {
+      const { componentList = [] } = state
+      const removedId = action.payload
+      // 重新计算selectedId
+      state.selectedId = getNextSelectedId(removedId, componentList)
+      const index = componentList.findIndex((component) => component.fe_id === removedId)
+      state.componentList.splice(index, 1)
+    },
+    // 清空组件
+    clearComponent(state: ComponentsStateType) {
+      state.selectedId = ''
+      state.componentList = []
     }
   },
   extraReducers: {
@@ -62,4 +117,12 @@ export const componentsSlice = createSlice({
   }
 })
 
-export const { changeSelectedId } = componentsSlice.actions
+export const {
+  changeSelectedId,
+  addComponent,
+  changeComponentProps,
+  toggleComponentHidden,
+  toggleComponentLocked,
+  removeSelectedComponent,
+  clearComponent
+} = componentsSlice.actions

@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from 'react'
 import styles from './index.module.scss'
-import { EditHeader } from './EditHeader'
-import { LeftPanel } from './LeftPanel'
-import { RightPanel } from './RightPanel'
-import { EditCanvas } from './EchartCanvas'
-import { loadPageData } from '../../../redux/components/slice'
+import EditHeader from './EditHeader'
+import LeftPanel from './LeftPanel'
+import RightPanel from './RightPanel'
+import EditCanvas from './EchartCanvas'
+import { changeSelectedId, loadPageData } from '../../../redux/components/slice'
 import { useAppDispatch } from '../../../redux/hooks'
 import { useParams } from 'react-router-dom'
 
@@ -17,6 +17,11 @@ const Edit: FC = () => {
     // 加载文件详情
     dispatch(loadPageData(id))
   }, [])
+
+  // 清空当前选中组件
+  const clearSelectedId = () => {
+    dispatch(changeSelectedId(''))
+  }
   return (
     <>
       <div className={styles['header']}>
@@ -26,7 +31,7 @@ const Edit: FC = () => {
         <div className={styles['left']}>
           <LeftPanel />
         </div>
-        <div className={styles['center']}>
+        <div className={styles['center']} onClick={clearSelectedId}>
           <div className={styles['canvas-wrapper']}>
             <EditCanvas />
           </div>

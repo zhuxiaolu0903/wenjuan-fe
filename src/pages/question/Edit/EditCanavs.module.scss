@@ -1,11 +1,23 @@
 .canvas-container {
+  position: relative;
   min-height: 100%;
   background-color: #fff;
   overflow: hidden;
 }
 
+.spin-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .component {
-  padding: 8px;
   pointer-events: none; // 屏蔽鼠标行为，组件不让被点击到
 }
 
@@ -13,13 +25,34 @@
   padding: 8px;
   border: 1px solid transparent;
   &.selected {
-    border: 2px solid #07c160!important;
+    border: 1px solid #07c160!important;
     background-color: transparent!important;
   }
   &:hover {
     border: 1px dashed #07c160;
     background-color: rgba(7, 193, 96, 0.04);
   }
+}
+
+.locked {
+  position: relative;
+  opacity: .5;
+  cursor: not-allowed;
+  border: 1px solid #7f7f7f;
+}
+
+.locked-icon {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 12px;
+}
+
+.option-item-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 150px;
 }
 
 .no-data-container {
