@@ -7,7 +7,6 @@ export type QuestionRadioPropsType = {
   title?: string
   isVertical?: boolean
   options?: OptionType[]
-  value?: string
   size?: 'large' | 'middle' | 'small'
 
   // 用于 PropComponent
@@ -23,6 +22,5 @@ export const QuestionRadioDefaultProps: QuestionRadioPropsType = {
     { value: '选项2', label: '选项2' },
     { value: '选项3', label: '选项3' }
   ],
-  value: '',
   size: 'middle'
 }

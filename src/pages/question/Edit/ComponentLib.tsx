@@ -1,9 +1,5 @@
 import React, { CSSProperties, FC } from 'react'
-import {
-  componentConfGroup,
-  ComponentConfType,
-  ComponentPropsType
-} from '../../../components/QuestionComponents'
+import { componentConfGroup, ComponentConfType } from '../../../components/QuestionComponents'
 import { Collapse, CollapseProps } from 'antd'
 import { CaretRightOutlined } from '@ant-design/icons'
 import styles from './ComponentLib.module.scss'
@@ -50,8 +46,8 @@ const ComponentLib: FC = () => {
 
   const panelStyle: React.CSSProperties = {
     margin: '0 -8px',
-    borderColor: '#e0e0e0',
-    backgroundColor: '#f9f9f9'
+    borderColor: '#f0f0f0',
+    backgroundColor: '#ffffff'
   }
 
   return (

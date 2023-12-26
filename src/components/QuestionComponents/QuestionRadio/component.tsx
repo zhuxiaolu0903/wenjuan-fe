@@ -5,13 +5,7 @@ import { QuestionRadioPropsType, QuestionRadioDefaultProps } from './interface'
 const { Paragraph } = Typography
 
 const QuestionRadio: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType) => {
-  const {
-    title,
-    isVertical,
-    options = [],
-    value,
-    size
-  } = { ...QuestionRadioDefaultProps, ...props }
+  const { title, isVertical, options = [], size } = { ...QuestionRadioDefaultProps, ...props }
 
   return (
     <div>
@@ -19,18 +13,22 @@ const QuestionRadio: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType
         {title}
       </Paragraph>
       <div style={{ marginBottom: '8px' }}>
-        <Radio.Group value={value} size={size}>
-          <Space direction={isVertical ? 'vertical' : 'horizontal'}>
-            {options.map((opt) => {
-              const { value, label } = opt
-              return (
-                <Radio key={value} value={value}>
-                  {label}
-                </Radio>
-              )
-            })}
-          </Space>
-        </Radio.Group>
+        {isVertical ? (
+          <Radio.Group size={size}>
+            <Space direction="vertical">
+              {options.map((opt) => {
+                const { value, label } = opt
+                return (
+                  <Radio key={value} value={value}>
+                    {label}
+                  </Radio>
+                )
+              })}
+            </Space>
+          </Radio.Group>
+        ) : (
+          <Radio.Group size={size} options={options} />
+        )}
       </div>
     </div>
   )

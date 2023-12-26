@@ -9,15 +9,6 @@ const Random = Mock.Random
 
 function getComponentList() {
   return [
-    // Info
-    // {
-    //     fe_id: 'c1', // 注意，由于统计页，左侧和中间需要数据完全一直，所以要写死 fe_id ，不能用 Random.id()
-    //     type: 'questionInfo', // 组件类型，不能重复，前后端统一好
-    //     title: '问卷信息',
-    //     isHidden: false,
-    //     isLocked: false,
-    //     props: { title: '问卷标题', desc: '问卷描述...' }
-    // },
     // Title
     {
       fe_id: 'c2',
@@ -44,7 +35,7 @@ function getComponentList() {
       isHidden: false,
       isLocked: false,
       props: { title: '你的电话', placeholder: '请输入电话...' }
-    }
+    },
     // Textarea
     // {
     //     fe_id: 'c5',
@@ -63,41 +54,44 @@ function getComponentList() {
     //     isLocked: false,
     //     props: { text: '一行段落1\n一行段落2', isCenter: false }
     // },
-    // // Radio
-    // {
-    //     fe_id: 'c7',
-    //     type: 'questionRadio',
-    //     title: '单选',
-    //     isHidden: false,
-    //     isLocked: false,
-    //     props: {
-    //         title: '单选标题',
-    //         isVertical: false,
-    //         options: [
-    //           { value: 'item1', text: '选项1' },
-    //           { value: 'item2', text: '选项2' },
-    //           { value: 'item3', text: '选项3' },
-    //         ],
-    //         value: '',
-    //       }
-    // },
-    // // Checkbox
-    // {
-    //     fe_id: 'c8',
-    //     type: 'questionCheckbox',
-    //     title: '多选',
-    //     isHidden: false,
-    //     isLocked: false,
-    //     props: {
-    //         title: '多选标题',
-    //         isVertical: false,
-    //         list: [
-    //             { value: 'item1', text: '选项1', checked: true },
-    //             { value: 'item2', text: '选项2', checked: false },
-    //             { value: 'item3', text: '选项3', checked: false },
-    //         ],
-    //       }
-    // }
+    // Radio
+    {
+      fe_id: 'c7',
+      type: 'questionRadio',
+      title: '单选',
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '上课是否觉得无聊',
+        isVertical: true,
+        options: [
+          { value: 'item1', label: '非常无聊' },
+          { value: 'item2', label: '有点无聊' },
+          { value: 'item4', label: '有趣' },
+          { value: 'item5', label: '非常有趣' }
+        ],
+        value: ''
+      }
+    },
+    // Checkbox
+    {
+      fe_id: 'c8',
+      type: 'questionCheckbox',
+      title: '多选',
+      isHidden: false,
+      isLocked: false,
+      props: {
+        title: '最喜欢的课程',
+        isVertical: true,
+        options: [
+          { value: 'item1', label: '语文' },
+          { value: 'item2', label: '数学' },
+          { value: 'item3', label: '英语' },
+          { value: 'item4', label: '地理' },
+          { value: 'item5', label: '生物' }
+        ]
+      }
+    }
   ]
 }
 

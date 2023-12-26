@@ -7,7 +7,6 @@ export type QuestionCheckboxPropsType = {
   title?: string
   isVertical?: boolean
   options?: OptionType[]
-  value?: string
 
   // 用于 PropComponent
   onChange?: (newProps: QuestionCheckboxPropsType) => void
@@ -21,6 +20,5 @@ export const QuestionCheckboxDefaultProps: QuestionCheckboxPropsType = {
     { value: '选项1', label: '选项1' },
     { value: '选项2', label: '选项2' },
     { value: '选项3', label: '选项3' }
-  ],
-  value: ''
+  ]
 }

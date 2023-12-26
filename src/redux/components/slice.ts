@@ -62,6 +62,8 @@ export const componentsSlice = createSlice({
     toggleComponentHidden(state: ComponentsStateType, action: PayloadAction<string>) {
       const { componentList = [] } = state
       const fe_id = action.payload
+      // 重新计算selectedId
+      state.selectedId = getNextSelectedId(fe_id, componentList)
       const curComp = componentList.find((component) => component.fe_id === fe_id)
       if (curComp) {
         curComp.isHidden = !curComp.isHidden
@@ -77,6 +79,30 @@ export const componentsSlice = createSlice({
       if (curComp) {
         curComp.isLocked = !curComp.isLocked
       }
+    },
+    // 选中上一个组件
+    selectPrevComponent: (state: ComponentsStateType) => {
+      const { selectedId, componentList } = state
+      const filterComponentList = componentList.filter(
+        (component) => !component.isHidden && !component.isLocked
+      )
+      let selectedIndex = filterComponentList.findIndex((c) => c.fe_id === selectedId)
+      // 未选中组件
+      if (selectedIndex === -1) return
+      if (selectedIndex === 0) selectedIndex = filterComponentList.length
+      state.selectedId = filterComponentList[selectedIndex - 1].fe_id
+    },
+    // 选中下一个组件
+    selectNextComponent: (state: ComponentsStateType) => {
+      const { selectedId, componentList } = state
+      const filterComponentList = componentList.filter(
+        (component) => !component.isHidden && !component.isLocked
+      )
+      let selectedIndex = filterComponentList.findIndex((c) => c.fe_id === selectedId)
+      // 未选中组件
+      if (selectedIndex === -1) return
+      if (selectedIndex === filterComponentList.length - 1) selectedIndex = -1
+      state.selectedId = filterComponentList[selectedIndex + 1].fe_id
     },
     // 删除当前选中的组件
     removeSelectedComponent: (state: ComponentsStateType, action: PayloadAction<string>) => {
@@ -123,6 +149,8 @@ export const {
   changeComponentProps,
   toggleComponentHidden,
   toggleComponentLocked,
+  selectPrevComponent,
+  selectNextComponent,
   removeSelectedComponent,
   clearComponent
 } = componentsSlice.actions

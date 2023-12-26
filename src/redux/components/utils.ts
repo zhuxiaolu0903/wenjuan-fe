@@ -20,7 +20,9 @@ export function insertNewComponent(state: ComponentsStateType, newComponent: Com
 }
 
 export function getNextSelectedId(fe_id: string, componentList: ComponentInfoType[]) {
-  const filterComponentList = componentList.filter((component) => !component.isHidden)
+  const filterComponentList = componentList.filter(
+    (component) => !component.isHidden && !component.isLocked
+  )
   let newSelectedId = ''
   const index = filterComponentList.findIndex((component) => component.fe_id === fe_id)
   if (index > -1) {
