@@ -11,7 +11,7 @@ export function insertNewComponent(state: ComponentsStateType, newComponent: Com
     ? componentList.findIndex((component) => component.fe_id === selectedId)
     : -1
   // 将新组件插入到当前选中组件的下方，否则放置到末尾
-  if (index > 0) {
+  if (index > -1) {
     state.componentList.splice(index + 1, 0, newComponent)
   } else {
     state.componentList.push(newComponent)

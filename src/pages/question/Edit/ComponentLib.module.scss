@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 8px;
+  row-gap: 8px;
 }
 
 .component-item-box {
@@ -9,10 +10,12 @@
   grid-template-rows: 1fr 1fr;
   justify-content: center;
   justify-items: center;
-  row-gap: 8px;
+  align-items: center;
+  padding: 8px 0 0;
   cursor: pointer;
 
   &:hover {
+    background-color: #ededed;
     span {
       color: #07c160;
     }
@@ -23,14 +26,39 @@
     width: 32px;
     height: 32px;
     background-size: contain;
+    background-repeat: no-repeat;
   }
 
   .text-icon {
     background-image: url("../../../assets/images/component/text-icon.png");
   }
 
+  .paragraph-icon {
+    background-image: url("../../../assets/images/component/paragraph-icon.png");
+  }
+
+  .divider-icon {
+    background-image: url("../../../assets/images/component/divider-icon.png");
+  }
+
   .input-icon {
     background-image: url("../../../assets/images/component/input-icon.png");
+  }
+
+  .textarea-icon {
+    background-image: url("../../../assets/images/component/textarea-icon.png");
+  }
+
+  .button-icon {
+    background-image: url("../../../assets/images/component/button-icon.png");
+  }
+
+  .radio-icon {
+    background-image: url("../../../assets/images/component/radio-icon.png");
+  }
+
+  .checkbox-icon {
+    background-image: url("../../../assets/images/component/checkbox-icon.png");
   }
 
   span {

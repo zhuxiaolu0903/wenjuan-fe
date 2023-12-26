@@ -10,7 +10,7 @@ export type QuestionTitlePropsType = {
 }
 
 export const QuestionTitleDefaultProps: QuestionTitlePropsType = {
-  text: '一行标题',
+  text: '一行文本',
   level: 2,
   color: '#333333',
   isCenter: false

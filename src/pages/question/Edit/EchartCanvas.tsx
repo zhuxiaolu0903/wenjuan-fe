@@ -14,6 +14,7 @@ import noComponentIcon from '../../../assets/images/no-component.png'
 import { Spin, Space, Dropdown, MenuProps } from 'antd'
 import 'react-contexify/ReactContexify.css'
 import { LockOutlined } from '@ant-design/icons'
+import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress'
 
 function genComponent(componentInfo: ComponentInfoType) {
   const { type, props } = componentInfo // 每个组件的信息，是从 redux store 获取的（服务端获取）
@@ -32,12 +33,21 @@ const EditCanvas: FC = () => {
   const selectedId = useAppSelector((state) => state.components.selectedId)
   const componentList = useAppSelector((state) => state.components.componentList)
   const dispatch = useAppDispatch()
-  const handleClick = (event: MouseEvent, fe_id: string) => {
+  // 绑定快捷键
+  useBindCanvasKeyPress(selectedId)
+  const handleClick = (event: MouseEvent, fe_id: string, isLocked = false) => {
     event.stopPropagation()
+    if (isLocked) return
     dispatch(changeSelectedId(fe_id))
   }
   // 右击选中组件
-  const handleContextMenu = (fe_id: string) => {
+  const handleContextMenu = (event: MouseEvent, fe_id: string, isLocked = false) => {
+    if (isLocked) {
+      // 被锁定状态下不允许右击
+      event.stopPropagation()
+      event.preventDefault()
+      return false
+    }
     setCurOptFeId(fe_id)
     dispatch(changeSelectedId(fe_id))
   }
@@ -47,7 +57,7 @@ const EditCanvas: FC = () => {
       label: (
         <div className={styles['option-item-box']}>
           <span>删除</span>
-          <span>Ctrl + Del</span>
+          <span>Delete / Backspace </span>
         </div>
       )
     },
@@ -141,8 +151,8 @@ const EditCanvas: FC = () => {
                 return (
                   <div
                     key={fe_id}
-                    onClick={(e) => handleClick(e, fe_id)}
-                    onContextMenu={() => handleContextMenu(fe_id)}
+                    onClick={(e) => handleClick(e, fe_id, isLocked)}
+                    onContextMenu={(e) => handleContextMenu(e, fe_id, isLocked)}
                     className={wrapperClassName}
                   >
                     {isLocked && (

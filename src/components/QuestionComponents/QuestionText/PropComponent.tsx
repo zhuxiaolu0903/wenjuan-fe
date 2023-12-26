@@ -16,9 +16,8 @@ const PropComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
   }, [text, level, color, isCenter])
 
   const handleValuesChange = () => {
-    if (onChange) {
-      onChange(form.getFieldsValue())
-    }
+    if (onChange == null) return
+    onChange(form.getFieldsValue())
   }
   return (
     <Form
@@ -48,7 +47,7 @@ const PropComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
       <Form.Item label="颜色" name="color">
         <ColorPicker />
       </Form.Item>
-      <Form.Item name="isCenter" valuePropName="checked">
+      <Form.Item label="布局" name="isCenter" valuePropName="checked">
         <Checkbox>居中显示</Checkbox>
       </Form.Item>
     </Form>

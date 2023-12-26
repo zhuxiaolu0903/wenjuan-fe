@@ -1,17 +1,16 @@
 import React, { FC, useEffect } from 'react'
 import { Form, Input } from 'antd'
-import { QuestionInputPropsType } from './interface'
+import { QuestionCheckboxPropsType } from './interface'
 
-const PropComponent: FC<QuestionInputPropsType> = (props: QuestionInputPropsType) => {
-  const { title, placeholder, onChange } = props
+const PropComponent: FC<QuestionCheckboxPropsType> = (props: QuestionCheckboxPropsType) => {
+  const { title, onChange } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
     form.setFieldsValue({
-      title,
-      placeholder
+      title
     })
-  }, [title, placeholder])
+  }, [title])
   const handleValuesChange = () => {
     if (onChange == null) return
     onChange(form.getFieldsValue())
@@ -19,7 +18,7 @@ const PropComponent: FC<QuestionInputPropsType> = (props: QuestionInputPropsType
   return (
     <Form
       layout="vertical"
-      initialValues={{ title, placeholder }}
+      initialValues={{ title }}
       form={form}
       onValuesChange={handleValuesChange}
     >
@@ -33,9 +32,6 @@ const PropComponent: FC<QuestionInputPropsType> = (props: QuestionInputPropsType
           }
         ]}
       >
-        <Input />
-      </Form.Item>
-      <Form.Item label="placeholder" name="placeholder">
         <Input />
       </Form.Item>
     </Form>
